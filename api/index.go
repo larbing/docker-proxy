@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"strings"
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
@@ -26,6 +27,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	proxy.ModifyResponse = func(r *http.Response) error {
 		locationHeader := r.Header.Get("Location")
 		if locationHeader != "" {
+			url, _ := url.Parse(locationHeader)
+			locationHeader = strings.Replace(locationHeader,url.Host, "docker.1panel.live", -1)
 			log.Printf("Location: %s", locationHeader)
 		}
 		return nil
