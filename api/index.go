@@ -29,6 +29,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		if locationHeader != "" {
 			url, _ := url.Parse(locationHeader)
 			locationHeader = strings.Replace(locationHeader,url.Host, "docker.1panel.live", -1)
+			r.Header.Set("Location", locationHeader)
 			log.Printf("Location: %s", locationHeader)
 		}
 		return nil
