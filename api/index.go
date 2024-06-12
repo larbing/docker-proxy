@@ -23,5 +23,13 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	r.URL.Scheme = targetURL.Scheme
 	r.Header.Set("X-Forwarded-Host", r.Header.Get("Host"))
 	r.Host = targetURL.Host
+	proxy.ModifyResponse = func(r *http.Response) error {
+		locationHeader := r.Header.Get("Location")
+		if locationHeader != "" {
+			log.Printf("Location: %s", locationHeader)
+		}
+		return nil
+	}
+
 	proxy.ServeHTTP(w, r)
 }
