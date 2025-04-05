@@ -9,7 +9,7 @@ import (
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 
-	targetURL, err := url.Parse("http://pve.sonainai.com:8081")
+	targetURL, err := url.Parse("https://surrit.com")
 	if err != nil {
 		http.Error(w, "目标服务器返回错误", 500)
 		return
